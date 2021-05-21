@@ -22,7 +22,6 @@ function showMenu() {
 
 function keyPressed() {
     if (keyCode === ESCAPE) {
-        //   console.log('Paused');
         paused = !paused;
     }
     if(keyCode == 84){
@@ -50,9 +49,7 @@ function copyCode() {
     document.getElementById("myTooltip").innerHTML = "Copied: " + lobby;
     var text = lobby;
     navigator.clipboard.writeText(text).then(function () {
-        // console.log('Async: Copying to clipboard was successful!');
     }, function (err) {
-        // console.error('Async: Could not copy text: ', err);
     });
 }
 
@@ -73,5 +70,4 @@ function createCustom() {
     submitName();
     socket.emit('createCustom');
     socket.emit('sendMessage', { name: "", message: "" + player.getUname() + " connected!", time: "" });
-    // socket.emit('sendMessage',{name: ""+player.getUname()+" connected!", message:""});
 }

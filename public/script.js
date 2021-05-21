@@ -21,11 +21,6 @@ var moving = true;
 var paused = false;
 let pauseDiv;
 
-let fov = 60;
-let lineWidth;
-let res = 2;
-let scale;
-
 let gameActive = false;
 
 function preload() {
@@ -150,10 +145,8 @@ function UIFunctions() {
 }
 
 function setSize(resizing) {
-  let pScale;
   let pPos;
   if (resizing) {
-    pScale = scale;
     pPos = player.getPos();
   }
   if (window.innerHeight < window.innerWidth) {
@@ -163,14 +156,6 @@ function setSize(resizing) {
     resizeCanvas(window.innerWidth*0.8, window.innerWidth*0.8);
     scale = window.innerWidth / 500;
   }
-  lineWidth = 1 + width / (fov * res);
-  player = new Player(150 * scale, 150 * scale, pID);
-  if (resizing) {
-    let x = (pPos.x / pScale) * scale;
-    let y = (pPos.y / pScale) * scale;
-    player.setPos(x, y);
-  }
-  yAxis = height / 2;
 }
 
 function windowResized() {
@@ -210,14 +195,12 @@ function joinCustom() {
   var custom = lobbyCode.value();
   socket.emit('joinCustom', custom);
   socket.emit('sendMessage', { name: "", message: "" + player.getUname() + " connected!", time: "" });
-  // socket.emit('sendMessage',{name: ""+player.getUname()+" connected!", message:""});
 }
 
 function joinRandom() {
   submitName();
   socket.emit('joinRandom');
   socket.emit('sendMessage', { name: "", message: "" + player.getUname() + " connected!", time: "" });
-  // socket.emit('sendMessage',{name: ""+player.getUname()+" connected!", message:""});
 }
 
 function checkLobby() {
